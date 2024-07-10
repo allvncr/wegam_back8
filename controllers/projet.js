@@ -14,7 +14,6 @@ const getAllProjets = async (req, res) => {
 
     const projets = await Projet.find(filter)
       .sort({ dateAjout: 1 })
-      .select("categories titre slug cover video")
       .populate("categories");
     res.json(projets);
   } catch (error) {
