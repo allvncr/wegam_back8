@@ -13,8 +13,12 @@ const getAllCategories = async (req, res) => {
         const count = await Projet.countDocuments({
           categories: categorie._id,
         });
-        if (count > 0) {
+        if (!req.query.filter) {
           return categorie;
+        } else {
+          if (count > 0) {
+            return categorie;
+          }
         }
       })
     );

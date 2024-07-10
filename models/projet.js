@@ -2,12 +2,10 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 
 const ProjetSchema = new mongoose.Schema({
-  categories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Categorie",
-    },
-  ],
+  categories: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Categorie",
+  },
   titre: {
     type: String,
     required: true,
@@ -17,6 +15,9 @@ const ProjetSchema = new mongoose.Schema({
     unique: true,
   },
   description: {
+    type: String,
+  },
+  description_eng: {
     type: String,
   },
   cover: {
@@ -35,6 +36,8 @@ const ProjetSchema = new mongoose.Schema({
     type: String,
     default: "#3f3f3f",
   },
+  aLaUne: { type: Boolean, default: false },
+  actif: { type: Boolean, default: true },
   dateAjout: { type: Date, default: Date.now },
   dateModification: { type: Date, default: Date.now },
 });

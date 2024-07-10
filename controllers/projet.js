@@ -69,11 +69,12 @@ const createProjet = async (req, res) => {
 
     const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
     const cover = files["cover"][0].filename; // Récupérer le nom du fichier de la couverture téléchargée
-    const images = files["images"].map((file) => file.filename); // Récupérer les noms des fichiers des images téléchargées
+
+    const images = files["images"]?.map((file) => file.filename); // Récupérer les noms des fichiers des images téléchargées
 
     const projet = new Projet({
       cover: `${basePath}${cover}`,
-      images: images.map((image) => `${basePath}${image}`), // Construire les chemins complets des images téléchargées
+      images: images?.map((image) => `${basePath}${image}`), // Construire les chemins complets des images téléchargées
       ...req.body,
     });
     await projet.save();
@@ -100,14 +101,14 @@ const updateProjet = async (req, res) => {
     let updateData = { ...body };
 
     // Si un fichier est envoyé pour la couverture, mettre à jour la couverture
-    if (files["cover"]) {
+    if (files && files["cover"]) {
       updateData.cover = `${req.protocol}://${req.get("host")}/public/uploads/${
         files["cover"][0].filename
       }`;
     }
 
     // Si des fichiers sont envoyés pour les images, mettre à jour les images
-    if (files["images"]) {
+    if (files && files["images"]) {
       updateData.images = files["images"].map(
         (file) =>
           `${req.protocol}://${req.get("host")}/public/uploads/${file.filename}`

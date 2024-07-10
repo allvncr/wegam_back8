@@ -46,7 +46,7 @@ router.post(
   "/",
   upload.fields([
     { name: "cover", maxCount: 1 },
-    { name: "images", maxCount: 10 },
+    { name: "images", maxCount: 20 },
   ]),
   createProjet
 );

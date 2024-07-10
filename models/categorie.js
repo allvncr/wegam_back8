@@ -13,6 +13,8 @@ const categorieSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  dateAjout: { type: Date, default: Date.now },
+  dateModification: { type: Date, default: Date.now },
 });
 
 categorieSchema.pre("save", async function (next) {
